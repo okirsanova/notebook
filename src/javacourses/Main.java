@@ -23,9 +23,11 @@ public class Main {
                     break;
                 case "list":
                     list();
+                case "help":
+                    help();
                     break;
                 default:
-                    System.out.println("Unknown command");
+                    System.out.println("Type HELP if need help, or CREATE to create new record.");
             }
         }
     }
@@ -33,6 +35,25 @@ public class Main {
     private static void list() {
         for (Person p : records) {
             System.out.println(p);
+        }
+    }
+
+    private static void help() {
+        for (; ; ) {
+            String type = askString("Need help? Type YES if needed or NO to exit: ");
+
+            switch (type.toLowerCase()) {
+                case "exit":
+                    return;
+                case "yes":
+                    System.out.println("You can create list of persons. Use keywords: LIST to review or CREATE to add new person. Type EXIT to close program" +
+                            ".");
+                    return;
+                case "no":
+                    return;
+                default:
+                    System.out.println("Unknown type");
+            }
         }
     }
 
@@ -47,7 +68,13 @@ public class Main {
                     createPerson();
                     return;
                 default:
-                    System.out.println("Unknown type");
+                    System.out.println("Need help?");
+                case "YES":
+                    System.out.println("Type CREATE than PERSON to create new record, and follow instructions.");
+                    return;
+                case "NO":
+                return;
+
             }
         }
     }
@@ -56,12 +83,14 @@ public class Main {
         String firstName = askString("First Name: ");
         String lastName = askString("Last Name: ");
         String phone = askString("Phone: ");
+        String email = askString("Email: ");
+
 
         Person person = new Person();
         person.setFirstName(firstName);
         person.setLastName(lastName);
         person.setPhone(phone);
-
+        person.setEmail(email);
         records.add(person);
     }
 
